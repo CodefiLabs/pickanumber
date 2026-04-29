@@ -157,6 +157,9 @@
 				<a class="hidden text-ink-soft transition hover:text-ink lg:inline" href="#examples"
 					>Examples</a
 				>
+				<a class="hidden text-ink-soft transition hover:text-ink md:inline" href="#mybench"
+					>MyBench</a
+				>
 				<a class="text-ink-soft transition hover:text-ink" href="#install">Install</a>
 				<a
 					class="inline-flex items-center gap-1.5 text-ink-soft transition hover:text-ink"
@@ -465,6 +468,92 @@
 </section>
 
 <!-- ╭──────────────────────────────────────────────────────────────╮
+     │ IN PRODUCTION — MyBench                                       │
+     ╰──────────────────────────────────────────────────────────────╯ -->
+<section id="mybench" class="border-b border-rule py-24 lg:py-32">
+	<div class="container-prose">
+		<p class="font-mono text-xs uppercase tracking-wider text-ink-faint">In production</p>
+		<h2 class="mt-3 text-section font-semibold text-ink-strong">
+			A whole product runs on this formula.
+		</h2>
+		<p class="mt-4 max-w-3xl text-ink-soft">
+			<a
+				class="font-semibold text-ink-strong underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong"
+				href="https://mybench.codefiworks.com"
+				target="_blank"
+				rel="noopener">MyBench</a
+			>
+			is a 45-minute interview that turns your real work into a private, saturate-resistant AI
+			benchmark suite — then scores it across <span class="phrase">model × harness</span> combinations.
+			The scoring engine is the seven-principle methodology on this page, reused unchanged. Same
+			discrete impact set. Same sqrt normalization. Same 5×5 perspective × criterion matrix. Different
+			domain, same math.
+		</p>
+
+		<div class="mt-10 grid gap-x-10 gap-y-10 lg:grid-cols-[1.4fr_1fr]">
+			<div class="rounded-lg border border-rule bg-paper p-6 lg:p-8">
+				<div class="flex flex-wrap items-baseline justify-between gap-4">
+					<div class="flex items-center gap-3">
+						<div
+							class="flex h-8 w-8 items-center justify-center rounded-md border-[1.5px] border-ink-strong text-sm font-bold text-ink-strong"
+						>
+							M
+						</div>
+						<span class="text-base font-bold tracking-tight text-ink-strong">MyBench</span>
+					</div>
+					<a
+						class="text-sm text-ink-soft underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
+						href="https://github.com/CodefiLabs/mybench"
+						target="_blank"
+						rel="noopener">GitHub →</a
+					>
+				</div>
+				<p class="mt-5 leading-relaxed text-ink-soft">
+					<em class="not-italic font-semibold text-ink-strong">Stop reading model reviews. Build your own benchmark.</em>
+					Three to five tests tuned to your work, with planted traps and an evidence guide.
+					Re-run weekly when a new model ships.
+				</p>
+				<dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+					<dt class="text-ink-faint">Scoring</dt>
+					<dd class="text-ink">7-principle, this page</dd>
+					<dt class="text-ink-faint">Interview</dt>
+					<dd class="text-ink">~45 minutes</dd>
+					<dt class="text-ink-faint">Output</dt>
+					<dd class="text-ink">3–5 benchmarks + traps</dd>
+					<dt class="text-ink-faint">Axis</dt>
+					<dd class="text-ink">model × harness</dd>
+				</dl>
+				<a
+					class="btn btn-primary mt-7 w-full"
+					href="https://mybench.codefiworks.com"
+					target="_blank"
+					rel="noopener"
+				>
+					Visit mybench.codefiworks.com
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+						><path d="M5 12h14M12 5l7 7-7 7" /></svg
+					>
+				</a>
+			</div>
+
+			<div>
+				<h3 class="text-base font-semibold text-ink-strong">Why this matters here.</h3>
+				<p class="mt-3 text-sm leading-relaxed text-ink-soft">
+					The methodology works on the things it was calibrated against (hackathon code, BLS
+					occupations) — and on a domain it had nothing to do with. Same formula, different surface.
+					That's the test for whether a scoring approach is general or just overfit to its training
+					anecdotes.
+				</p>
+				<p class="mt-4 text-sm leading-relaxed text-ink-soft">
+					If you want to see the seven principles applied end-to-end on a fresh problem before you
+					install one of the skills below — start there.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ╭──────────────────────────────────────────────────────────────╮
      │ INSTALL — three skills                                        │
      ╰──────────────────────────────────────────────────────────────╯ -->
 <section id="install" class="border-b border-rule py-24 lg:py-32">
@@ -626,7 +715,7 @@
 				>
 				<a
 					class="text-ink-faint transition hover:text-ink"
-					href="https://github.com/CodefiLabs/mybench"
+					href="https://mybench.codefiworks.com"
 					target="_blank"
 					rel="noopener">MyBench</a
 				>
