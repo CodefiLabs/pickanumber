@@ -41,8 +41,9 @@
 
 	const workedExamples = [
 		{
-			label: 'A — Strong, abundant evidence',
-			line1: 'net_impact = +25, total_items = 25',
+			id: 'A',
+			title: 'Strong, abundant evidence',
+			given: 'net_impact = +25, total_items = 25',
 			steps: [
 				'normalized = 25 / sqrt(25) = 5.0',
 				'raw = 50 + (5.0 × 8.0) = 90',
@@ -51,8 +52,9 @@
 			]
 		},
 		{
-			label: 'B — Strong, sparse evidence',
-			line1: 'net_impact = +25, total_items = 4',
+			id: 'B',
+			title: 'Strong, sparse evidence',
+			given: 'net_impact = +25, total_items = 4',
 			steps: [
 				'normalized = 25 / sqrt(4) = 12.5',
 				'raw = 50 + (12.5 × 8.0) = 150 → clamped 100',
@@ -61,8 +63,9 @@
 			]
 		},
 		{
-			label: 'C — Average',
-			line1: 'net_impact = 0, total_items = 20',
+			id: 'C',
+			title: 'Average',
+			given: 'net_impact = 0, total_items = 20',
 			steps: [
 				'normalized = 0',
 				'raw = 50',
@@ -71,13 +74,14 @@
 			]
 		},
 		{
-			label: 'D — Weak, well-evidenced',
-			line1: 'net_impact = −15, total_items = 25',
+			id: 'D',
+			title: 'Weak, well-evidenced',
+			given: 'net_impact = −15, total_items = 25',
 			steps: [
 				'normalized = −15 / sqrt(25) = −3.0',
 				'raw = 50 + (−3.0 × 8.0) = 26',
 				'density = 1.25 → multiplier = 1.0',
-				'final = 26, confidence = 1.0  (high confidence in a low score — formula working correctly)'
+				'final = 26, confidence = 1.0  (high confidence in a low score)'
 			]
 		}
 	];
@@ -317,9 +321,9 @@
 							<th class="border-b border-rule px-4 py-3 text-ink-faint">tier</th>
 						</tr>
 					</thead>
-					<tbody class="bg-paper">
-						{#each calibration as row, i}
-							<tr class={i % 2 === 0 ? '' : 'bg-paper-sunk'}>
+					<tbody class="divide-y divide-rule bg-paper">
+						{#each calibration as row}
+							<tr>
 								<td class="border-r border-rule px-4 py-3 font-mono text-ink">{row.normalized}</td>
 								<td class="border-r border-rule px-4 py-3 font-mono text-ink-strong">{row.score}</td>
 								<td class="px-4 py-3 text-ink-soft">{row.tier}</td>
@@ -344,24 +348,30 @@
 			step.
 		</p>
 
-		<div class="mt-12 grid gap-6 sm:grid-cols-2">
+		<!-- Worked examples — numbered ledger, one ruled row each. -->
+		<ol class="mt-12 grid gap-x-12 gap-y-2 lg:grid-cols-2">
 			{#each workedExamples as ex}
-				<div class="rounded-lg border border-rule bg-paper p-5">
-					<h3 class="text-sm font-mono font-semibold text-ink-strong">{ex.label}</h3>
-					<p class="mt-2 font-mono text-xs text-ink-soft">{ex.line1}</p>
-					<ul class="mt-3 space-y-1 font-mono text-xs leading-relaxed text-ink">
-						{#each ex.steps as s}
-							<li>· {s}</li>
-						{/each}
-					</ul>
-				</div>
+				<li class="grid grid-cols-[2rem_1fr] items-baseline gap-x-4 border-t border-rule py-5">
+					<span class="font-mono text-sm font-semibold text-ink-faint">{ex.id}</span>
+					<div>
+						<h3 class="text-base font-semibold leading-snug text-ink-strong">{ex.title}</h3>
+						<p class="mt-2 font-mono text-xs text-ink-soft">given · {ex.given}</p>
+						<ul class="mt-2 space-y-0.5 font-mono text-xs leading-relaxed text-ink">
+							{#each ex.steps as s}
+								<li>· {s}</li>
+							{/each}
+						</ul>
+					</div>
+				</li>
 			{/each}
-		</div>
+		</ol>
 
-		<!-- Impeccable rescoring callout -->
-		<div class="mt-16 rounded-lg border border-ink-strong bg-paper p-6 lg:p-8">
+		<!-- Rescoring case study — ruled annotation, not a card stack. -->
+		<div class="mt-20 border-t-2 border-ink-strong pt-8">
 			<div class="flex flex-wrap items-baseline justify-between gap-4">
-				<h3 class="text-xl font-semibold text-ink-strong">Rescoring case study: <span class="font-mono">pbakaus/impeccable</span></h3>
+				<h3 class="text-xl font-semibold text-ink-strong">
+					Rescoring case study: <span class="font-mono">pbakaus/impeccable</span>
+				</h3>
 				<a
 					class="text-sm text-ink-soft underline underline-offset-4 decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
 					href="https://github.com/CodefiLabs/pickanumber/blob/main/examples/impeccable-rescoring.md"
@@ -369,36 +379,35 @@
 					rel="noopener">full analysis →</a
 				>
 			</div>
-			<p class="mt-4 leading-relaxed text-ink-soft">
+			<p class="mt-4 max-w-3xl leading-relaxed text-ink-soft">
 				Paul Bakaus' frontend-design skill bundle scored UIs on the 10 Nielsen heuristics, 0–4 each,
 				summed to a 0–40 band. Two judges (an LLM pass + a deterministic detector with 24 antipattern
 				rules) ran in isolation — exactly the right architecture. But the LLM still picked the
 				numbers. We replaced that step with signed-evidence-item collection and ran the standard
 				formula.
 			</p>
-			<div class="mt-6 grid gap-4 lg:grid-cols-3">
-				<div class="rounded-md border border-rule bg-paper-sunk p-4">
-					<p class="text-xs font-mono uppercase tracking-wider text-ink-faint">Before (vanilla)</p>
-					<p class="mt-2 text-3xl font-mono font-bold text-ink-strong">76</p>
-					<p class="mt-1 text-xs text-ink-soft">High variance run-to-run, integer picks compress around the mean.</p>
-				</div>
-				<div class="rounded-md border border-rule bg-paper-sunk p-4">
-					<p class="text-xs font-mono uppercase tracking-wider text-ink-faint">After (rescored)</p>
-					<p class="mt-2 text-3xl font-mono font-bold text-ink-strong">59</p>
-					<p class="mt-1 text-xs text-ink-soft">Stable across runs. The 24 detector rules become signed evidence items in the same pool.</p>
-				</div>
-				<div class="rounded-md border border-rule bg-paper-sunk p-4">
-					<p class="text-xs font-mono uppercase tracking-wider text-ink-faint">Separation</p>
-					<p class="mt-2 text-3xl font-mono font-bold text-mark">17 pts</p>
-					<p class="mt-1 text-xs text-ink-soft">The page wasn't bad — but it wasn't 76. The vanilla score was carrying ambient charity.</p>
-				</div>
+			<div class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-2 font-mono text-sm text-ink-soft">
+				<span>vanilla</span>
+				<span class="tabular text-3xl font-bold text-ink-strong">76</span>
+				<span aria-hidden="true">→</span>
+				<span>rescored</span>
+				<span class="tabular text-3xl font-bold text-ink-strong">59</span>
+				<span class="text-ink-faint" aria-hidden="true">·</span>
+				<span>Δ</span>
+				<span class="tabular text-3xl font-bold text-mark">17 pts</span>
 			</div>
+			<p class="mt-3 max-w-3xl text-sm text-ink-soft">
+				Stable across runs. The page wasn't bad — but it wasn't 76. The vanilla score was carrying
+				ambient charity.
+			</p>
 		</div>
 
-		<!-- cua-bench callout -->
-		<div class="mt-8 rounded-lg border border-rule bg-paper p-6 lg:p-8">
+		<!-- cua-bench callout — companion analysis, lighter ruled. -->
+		<div class="mt-12 border-t border-rule pt-8">
 			<div class="flex flex-wrap items-baseline justify-between gap-4">
-				<h3 class="text-xl font-semibold text-ink-strong">Companion analysis: <span class="font-mono">trycua/cua-bench</span></h3>
+				<h3 class="text-base font-semibold text-ink-strong">
+					Companion analysis: <span class="font-mono">trycua/cua-bench</span>
+				</h3>
 				<a
 					class="text-sm text-ink-soft underline underline-offset-4 decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
 					href="https://github.com/CodefiLabs/pickanumber/blob/main/examples/cua-bench-analysis.md"
@@ -406,7 +415,7 @@
 					rel="noopener">full analysis →</a
 				>
 			</div>
-			<p class="mt-4 leading-relaxed text-ink-soft">
+			<p class="mt-3 max-w-3xl leading-relaxed text-ink-soft">
 				Computer-use agent benchmark. Reward is a deterministic float — no LLM in the scoring path,
 				so principle 7 is satisfied by construction. The remaining opportunity is principles 2–6:
 				signed multi-signal evidence accumulation instead of single-signal pass/fail. The honest
