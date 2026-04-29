@@ -4,7 +4,7 @@
 
 **Pickanumber** is a methodology, a paper, and three installable skills for evidence-based LLM scoring. Ask an LLM to score something on a 0–10 scale and you'll get a 7. Ask again, you'll get a 7. The model isn't grading; it's anchoring. This repo fixes the problem the same way every time: **the LLM finds evidence; math computes the score.**
 
-The methodology was calibrated on 18 hackathon submissions and 342 BLS occupations across 9 frontier models. The paper is in [`paper/paper.md`](./paper/paper.md). Worked rescoring case studies are in [`examples/`](./examples/).
+The methodology was calibrated on 90+ hackathon submissions (codebases and demo videos, three events) and 342 BLS occupations across 9 frontier models. The paper is in [`paper/paper.md`](./paper/paper.md). Worked rescoring case studies are in [`examples/`](./examples/).
 
 ## Quickstart
 
@@ -111,7 +111,7 @@ Pick the smallest one that fits.
 ## Credits
 
 - **Methodology** — *Don't Let the LLM Pick a Number*, Kevin Kirchner / CodefiLabs
-- **Calibration data** — 18 hackathon submissions (St. Joseph + Joplin events), 342 BLS occupations
+- **Calibration data** — 90+ hackathon submissions across three events (codebases + demo videos), 342 BLS occupations
 - **Sister project** — [CodefiLabs/mybench](https://github.com/CodefiLabs/mybench) — same formula, applied to the personal-benchmark interview pattern
 - **Skill ecosystem** — [skills.sh](https://skills.sh)
 

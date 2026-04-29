@@ -177,7 +177,7 @@
 		<div class="mt-16 max-w-3xl lg:mt-24">
 			<!-- Receipts strip — the calibration numbers are the trust anchor -->
 			<div class="flex flex-wrap items-baseline gap-x-5 gap-y-1 text-sm text-ink-soft">
-				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">18</span> hackathons</span>
+				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">90+</span> submissions</span>
 				<span class="text-ink-faint" aria-hidden="true">·</span>
 				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">342</span> BLS occupations</span>
 				<span class="text-ink-faint" aria-hidden="true">·</span>
@@ -255,7 +255,7 @@
 					LLMs anchor to 7-out-of-10.
 				</h2>
 				<p class="mt-4 text-ink-soft">
-					Across 18 hackathon submissions and 342 BLS occupations, models picked numbers in a tight
+					Across 90+ hackathon submissions (codebases and demo videos, three events) and 342 BLS occupations, models picked numbers in a tight
 					band centered on 7. Variance was high run-to-run, but the central tendency stayed
 					locked. Calibration was decoration, not signal.
 				</p>
@@ -542,9 +542,9 @@
 			<div>
 				<h2 class="text-section font-semibold text-ink-strong">The paper.</h2>
 				<p class="mt-4 text-ink-soft">
-					<em>Don't Let the LLM Pick a Number</em> — methodology paper. Calibrated on 18 hackathon
-					submissions and 342 BLS occupations across 9 models. Includes the full derivation, ablations,
-					and the impeccable rescoring case study.
+					<em>Don't Let the LLM Pick a Number</em> — methodology paper. Calibrated on 90+ hackathon
+					submissions (codebases and demo videos, three events) and 342 BLS occupations across 9
+					models. Includes the full derivation, ablations, and the impeccable rescoring case study.
 				</p>
 			</div>
 			<div class="rounded-lg border border-rule bg-paper p-6 lg:p-8">
@@ -556,7 +556,7 @@
 					<dt class="text-ink-faint">Length</dt>
 					<dd class="text-ink">~9k words + appendices</dd>
 					<dt class="text-ink-faint">Calibrated on</dt>
-					<dd class="text-ink">18 hackathons, 342 BLS occupations</dd>
+					<dd class="text-ink">90+ hackathon submissions (3 events), 342 BLS occupations</dd>
 					<dt class="text-ink-faint">Models tested</dt>
 					<dd class="text-ink">9 frontier models</dd>
 					<dt class="text-ink-faint">License</dt>
@@ -636,10 +636,11 @@
 		</div>
 
 		<p class="mt-8 max-w-2xl text-xs leading-relaxed text-ink-faint">
-			Methodology calibrated on 18 hackathon submissions and 342 BLS occupations across 9 frontier
-			models. Worked rescoring case studies on <span class="font-mono">pbakaus/impeccable</span> and
+			Methodology calibrated on 90+ hackathon submissions across three events (codebases and demo
+			videos) and 342 BLS occupations across 9 frontier models. Worked rescoring case studies on
+			<span class="font-mono">pbakaus/impeccable</span> and
 			<span class="font-mono">trycua/cua-bench</span>. Pairwise diagnostic pattern borrows from
-			<span class="font-mono">lechmazur/writing-style</span>. Built by Kevin Kirchner at CodefiLabs.
+			<span class="font-mono">lechmazur/writing-style</span>. Built by Kevin Kirchner at Codefi.
 		</p>
 	</div>
 </footer>

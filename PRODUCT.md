@@ -24,7 +24,7 @@ Success is `skills add` invocations, not pageviews. Everything that doesn't help
 
 Three words: **rigorous, candid, hands-on.**
 
-Voice cues: short declarative sentences. No marketing softeners. Code samples and formulas are first-class, not buried. Show the receipts (18 hackathons, 342 BLS occupations, 9 models). Don't apologize for being a draft.
+Voice cues: short declarative sentences. No marketing softeners. Code samples and formulas are first-class, not buried. Show the receipts (90+ submissions across 3 hackathons, 342 BLS occupations, 9 models). Don't apologize for being a draft.
 
 ## Anti-references
 
