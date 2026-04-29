@@ -119,7 +119,7 @@
 				>
 					P
 				</div>
-				<span class="font-mono text-sm font-semibold tracking-wider text-ink">PICKANUMBER</span>
+				<span class="font-mono text-sm font-semibold text-ink">pickanumber</span>
 				<span class="tag">v0.7 · draft</span>
 			</div>
 			<nav class="flex items-center gap-6 text-sm">
@@ -192,12 +192,12 @@
 				<div class="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm">
 					<a
 						href="#install"
-						class="text-ink-soft underline underline-offset-[6px] decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
+						class="text-ink-soft underline underline-offset-[6px] decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
 						>Or pick a different skill ↓</a
 					>
 					<a
 						href="#problem"
-						class="text-ink-faint underline underline-offset-[6px] decoration-rule hover:decoration-ink-soft hover:text-ink-soft"
+						class="text-ink-faint underline underline-offset-[6px] decoration-ink-faint/60 hover:decoration-ink-soft hover:text-ink-soft"
 						>see the problem first ↓</a
 					>
 				</div>
@@ -229,7 +229,7 @@
 				<p class="mt-4 text-ink-soft">
 					"Be honest." "Use the full scale." "A 4 means genuinely excellent." We tried all of it.
 					Public benchmarks like
-					<a class="underline underline-offset-4 decoration-rule hover:decoration-ink-strong" href="https://github.com/lechmazur/writing" target="_blank" rel="noopener">lechmazur/writing</a> retired their absolute rubric scoring after 9,139 score rows showed it. The pattern is the model, not the prompt.
+					<a class="underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong" href="https://github.com/lechmazur/writing" target="_blank" rel="noopener">lechmazur/writing</a> retired their absolute rubric scoring after 9,139 score rows showed it. The pattern is the model, not the prompt.
 				</p>
 			</div>
 			<div>
@@ -288,12 +288,12 @@
 
 		<div class="mt-10 grid gap-4 lg:grid-cols-2">
 			<pre
-				class="overflow-x-auto rounded-lg border border-rule bg-paper-sunk p-5 font-mono text-xs leading-relaxed text-ink"><code
+				class="overflow-x-auto rounded-md bg-ink-strong p-5 font-mono text-xs leading-relaxed text-paper"><code
 					>{PER_CRITERION_PSEUDO}</code
 				></pre>
 
 			<pre
-				class="overflow-x-auto rounded-lg border border-rule bg-paper-sunk p-5 font-mono text-xs leading-relaxed text-ink"><code
+				class="overflow-x-auto rounded-md bg-ink-strong p-5 font-mono text-xs leading-relaxed text-paper"><code
 					>{ACROSS_CRITERIA_PSEUDO}</code
 				></pre>
 		</div>
@@ -369,11 +369,11 @@
 		<!-- Rescoring case study — ruled annotation, not a card stack. -->
 		<div class="mt-20 border-t-2 border-ink-strong pt-8">
 			<div class="flex flex-wrap items-baseline justify-between gap-4">
-				<h3 class="text-xl font-semibold text-ink-strong">
+				<h3 class="text-2xl font-semibold leading-[1.15] text-ink-strong">
 					Rescoring case study: <span class="font-mono">pbakaus/impeccable</span>
 				</h3>
 				<a
-					class="text-sm text-ink-soft underline underline-offset-4 decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
+					class="text-sm text-ink-soft underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
 					href="https://github.com/CodefiLabs/pickanumber/blob/main/examples/impeccable-rescoring.md"
 					target="_blank"
 					rel="noopener">full analysis →</a
@@ -409,7 +409,7 @@
 					Companion analysis: <span class="font-mono">trycua/cua-bench</span>
 				</h3>
 				<a
-					class="text-sm text-ink-soft underline underline-offset-4 decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
+					class="text-sm text-ink-soft underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
 					href="https://github.com/CodefiLabs/pickanumber/blob/main/examples/cua-bench-analysis.md"
 					target="_blank"
 					rel="noopener">full analysis →</a
@@ -434,7 +434,7 @@
 		<h2 class="text-section font-semibold text-ink-strong">Three ways to use it.</h2>
 		<p class="mt-4 max-w-3xl text-ink-soft">
 			One repo, three skills. Pick the one that matches your need. All three are
-			<a class="underline underline-offset-4 decoration-rule hover:decoration-ink-strong" href="https://skills.sh" target="_blank" rel="noopener">skills.sh</a>-installable into Claude Code, Cursor, Goose, OpenCode, and any other skills-aware agent.
+			<a class="underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong" href="https://skills.sh" target="_blank" rel="noopener">skills.sh</a>-installable into Claude Code, Cursor, Goose, OpenCode, and any other skills-aware agent.
 		</p>
 
 		<!-- Decision aid in code-comment voice -->
@@ -454,7 +454,7 @@
 							<p class="mt-1 text-sm italic text-ink-soft">{s.tagline}</p>
 						</div>
 						<a
-							class="text-sm text-ink-soft underline underline-offset-4 decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
+							class="text-sm text-ink-soft underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
 							href="https://github.com/CodefiLabs/pickanumber/tree/main/{s.id}"
 							target="_blank"
 							rel="noopener">SKILL.md →</a
@@ -550,7 +550,7 @@
 				>
 					P
 				</div>
-				<span class="font-mono text-xs tracking-wider text-ink-soft">PICKANUMBER · CODEFILABS</span>
+				<span class="font-mono text-xs text-ink-soft">pickanumber · codefilabs</span>
 			</div>
 
 			<div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
