@@ -122,14 +122,22 @@
 				<span class="font-mono text-sm font-semibold text-ink">pickanumber</span>
 				<span class="tag">v0.7 · draft</span>
 			</div>
-			<nav class="flex items-center gap-6 text-sm">
-				<a class="text-ink-soft transition hover:text-ink" href="#problem">Problem</a>
-				<a class="text-ink-soft transition hover:text-ink" href="#principles">Principles</a>
-				<a class="text-ink-soft transition hover:text-ink" href="#formula">Formula</a>
-				<a class="text-ink-soft transition hover:text-ink" href="#examples">Examples</a>
+			<nav class="flex items-center gap-4 text-sm sm:gap-6">
+				<a class="hidden text-ink-soft transition hover:text-ink md:inline" href="#problem"
+					>Problem</a
+				>
+				<a class="hidden text-ink-soft transition hover:text-ink sm:inline" href="#principles"
+					>Principles</a
+				>
+				<a class="hidden text-ink-soft transition hover:text-ink md:inline" href="#formula"
+					>Formula</a
+				>
+				<a class="hidden text-ink-soft transition hover:text-ink lg:inline" href="#examples"
+					>Examples</a
+				>
 				<a class="text-ink-soft transition hover:text-ink" href="#install">Install</a>
 				<a
-					class="hidden md:inline text-ink-soft transition hover:text-ink"
+					class="text-ink-soft transition hover:text-ink"
 					href="https://github.com/CodefiLabs/pickanumber"
 					target="_blank"
 					rel="noopener">GitHub</a
@@ -148,7 +156,7 @@
 			</div>
 
 			<h1 class="mt-6 text-display font-bold text-ink-strong">
-				Don't let the LLM<br />
+				Don't let the LLM<br class="hidden sm:inline" />
 				<span class="text-mark">pick a number.</span>
 			</h1>
 			<p class="mt-6 text-lg leading-relaxed text-ink-soft lg:text-xl">
@@ -463,13 +471,16 @@
 					<p class="mt-4 leading-relaxed text-ink-soft">{s.body}</p>
 					<button
 						onclick={() => copy(s.id, s.install)}
-						class="group mt-5 flex w-full items-center justify-between rounded-md border border-rule bg-paper-sunk px-4 py-3 font-mono text-sm text-ink transition hover:border-ink-soft"
+						title={s.install}
+						class="group mt-5 flex w-full items-center justify-between gap-3 rounded-md border border-rule bg-paper-sunk px-4 py-3 font-mono text-xs text-ink transition hover:border-ink-soft sm:text-sm"
 					>
-						<span><span class="text-ink-faint">$</span> {s.install}</span>
+						<span class="min-w-0 flex-1 truncate text-left">
+							<span class="text-ink-faint">$</span> {s.install}
+						</span>
 						{#if copyState[s.id] === 'copied'}
-							<span class="font-semibold text-ink-strong">✓ copied</span>
+							<span class="shrink-0 font-semibold text-ink-strong">✓ copied</span>
 						{:else if copyState[s.id] === 'error'}
-							<span class="font-semibold text-ink-strong">select manually</span>
+							<span class="shrink-0 font-semibold text-ink-strong">select manually</span>
 						{:else}
 							<svg
 								width="14"
@@ -478,7 +489,8 @@
 								fill="none"
 								stroke="currentColor"
 								stroke-width="2"
-								class="text-ink-faint transition group-hover:text-ink"
+								class="shrink-0 text-ink-faint transition group-hover:text-ink"
+								aria-hidden="true"
 								><rect x="9" y="9" width="13" height="13" rx="2" /><path
 									d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
 								/></svg
