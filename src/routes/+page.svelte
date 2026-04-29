@@ -2,7 +2,10 @@
 	import { PRINCIPLES } from '$lib/principles.js';
 	import { PER_CRITERION_PSEUDO, ACROSS_CRITERIA_PSEUDO } from '$lib/formula.js';
 
+	/** @type {Record<string, 'idle' | 'copied' | 'error'>} */
 	let copyState = $state({});
+
+	const DEFAULT_INSTALL = 'npx skills add CodefiLabs/pickanumber/what-works-feedback-judge';
 
 	const skills = [
 		{
@@ -79,6 +82,7 @@
 		}
 	];
 
+	/** @param {string} key @param {string} text */
 	async function copy(key, text) {
 		try {
 			await navigator.clipboard.writeText(text);
@@ -103,8 +107,8 @@
      │ HERO                                                          │
      ╰──────────────────────────────────────────────────────────────╯ -->
 <header class="border-b border-rule">
-	<div class="container-prose pt-12 pb-20 lg:pt-20 lg:pb-32">
-		<div class="flex items-center justify-between">
+	<div class="container-prose pt-12 pb-20 lg:pt-20 lg:pb-28">
+		<div class="flex flex-wrap items-center justify-between gap-y-3">
 			<div class="flex items-center gap-3">
 				<div
 					class="flex h-9 w-9 items-center justify-center rounded-md border-[1.5px] border-ink-strong text-base font-bold text-ink-strong"
@@ -112,6 +116,7 @@
 					P
 				</div>
 				<span class="font-mono text-sm font-semibold tracking-wider text-ink">PICKANUMBER</span>
+				<span class="tag">v0.7 · draft</span>
 			</div>
 			<nav class="flex items-center gap-6 text-sm">
 				<a class="text-ink-soft transition hover:text-ink" href="#problem">Problem</a>
@@ -129,8 +134,16 @@
 		</div>
 
 		<div class="mt-16 max-w-3xl lg:mt-24">
-			<p class="text-sm text-ink-faint">A methodology paper. Three installable skills. One formula.</p>
-			<h1 class="mt-8 text-display font-bold text-ink-strong">
+			<!-- Receipts strip — the calibration numbers are the trust anchor -->
+			<div class="flex flex-wrap items-baseline gap-x-5 gap-y-1 text-sm text-ink-soft">
+				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">18</span> hackathons</span>
+				<span class="text-ink-faint" aria-hidden="true">·</span>
+				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">342</span> BLS occupations</span>
+				<span class="text-ink-faint" aria-hidden="true">·</span>
+				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">9</span> frontier models</span>
+			</div>
+
+			<h1 class="mt-6 text-display font-bold text-ink-strong">
 				Don't let the LLM<br />
 				<span class="text-mark">pick a number.</span>
 			</h1>
@@ -141,19 +154,49 @@
 				<strong class="font-semibold text-ink-strong">the LLM finds evidence; math computes the score.</strong>
 			</p>
 
-			<div class="mt-12 flex flex-wrap items-baseline gap-x-8 gap-y-3">
-				<a href="#install" class="btn btn-primary">
-					Install a skill
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-						><path d="M5 12h14M12 5l7 7-7 7" /></svg
-					>
-				</a>
-				<a
-					href="#problem"
-					class="text-sm text-ink-soft underline underline-offset-[6px] decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
+			<!-- Hero install — the conversion lives above the fold -->
+			<div class="mt-10">
+				<p class="font-mono text-xs uppercase tracking-wider text-ink-faint">Install the default skill</p>
+				<button
+					onclick={() => copy('hero', DEFAULT_INSTALL)}
+					title={DEFAULT_INSTALL}
+					class="group mt-3 flex w-full items-center justify-between gap-3 rounded-md border border-ink-strong bg-ink-strong px-4 py-3.5 font-mono text-xs text-paper transition hover:bg-ink sm:text-sm"
 				>
-					see the problem first ↓
-				</a>
+					<span class="min-w-0 flex-1 truncate text-left">
+						<span class="text-mark">$</span> {DEFAULT_INSTALL}
+					</span>
+					{#if copyState.hero === 'copied'}
+						<span class="shrink-0 font-semibold text-paper">✓ copied</span>
+					{:else if copyState.hero === 'error'}
+						<span class="shrink-0 font-semibold text-paper">select manually</span>
+					{:else}
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							class="shrink-0 text-paper-sunk transition group-hover:text-paper"
+							aria-hidden="true"
+							><rect x="9" y="9" width="13" height="13" rx="2" /><path
+								d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+							/></svg
+						>
+					{/if}
+				</button>
+				<div class="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm">
+					<a
+						href="#install"
+						class="text-ink-soft underline underline-offset-[6px] decoration-rule hover:decoration-ink-strong hover:text-ink-strong"
+						>Or pick a different skill ↓</a
+					>
+					<a
+						href="#problem"
+						class="text-ink-faint underline underline-offset-[6px] decoration-rule hover:decoration-ink-soft hover:text-ink-soft"
+						>see the problem first ↓</a
+					>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -385,7 +428,15 @@
 			<a class="underline underline-offset-4 decoration-rule hover:decoration-ink-strong" href="https://skills.sh" target="_blank" rel="noopener">skills.sh</a>-installable into Claude Code, Cursor, Goose, OpenCode, and any other skills-aware agent.
 		</p>
 
-		<div class="mt-12 space-y-6">
+		<!-- Decision aid in code-comment voice -->
+		<p class="mt-6 max-w-3xl font-mono text-sm leading-relaxed text-ink-soft">
+			<span class="text-ink-faint">// not sure?</span>
+			<span class="text-ink-strong">what-works-feedback-judge</span> is the simplest.
+			<span class="text-ink-strong">hackathon-judge</span> if you have a code submission.
+			<span class="text-ink-strong">evidence-scoring</span> if you're bringing your own domain.
+		</p>
+
+		<div class="mt-10 space-y-6">
 			{#each skills as s}
 				<div class="rounded-lg border border-rule bg-paper p-6 lg:p-8">
 					<div class="flex flex-wrap items-baseline justify-between gap-4">
