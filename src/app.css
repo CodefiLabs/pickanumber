@@ -10,6 +10,7 @@
 	}
 
 	body {
+		@apply bg-paper text-ink;
 		font-kerning: normal;
 		font-optical-sizing: auto;
 		text-rendering: optimizeLegibility;

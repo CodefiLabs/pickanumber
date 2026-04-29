@@ -343,16 +343,16 @@
 				not opinions — they fall out of the formula given each <span class="font-mono">normalized_impact</span>.
 			</p>
 
-			<div class="mt-6 overflow-x-auto rounded-lg border border-rule">
+			<div class="mt-6 overflow-x-auto rounded-md border border-rule">
 				<table class="w-full border-collapse text-left text-sm">
-					<thead class="bg-paper-sunk">
+					<thead class="bg-ink-strong">
 						<tr>
-							<th class="border-b border-r border-rule px-4 py-3 font-mono text-ink-faint">normalized_impact</th>
-							<th class="border-b border-r border-rule px-4 py-3 font-mono text-ink-faint">→ raw_score</th>
-							<th class="border-b border-rule px-4 py-3 text-ink-faint">tier</th>
+							<th class="px-4 py-3 font-mono text-xs uppercase tracking-wider text-paper-sunk">normalized_impact</th>
+							<th class="px-4 py-3 font-mono text-xs uppercase tracking-wider text-paper-sunk">→ raw_score</th>
+							<th class="px-4 py-3 text-xs uppercase tracking-wider text-paper-sunk">tier</th>
 						</tr>
 					</thead>
-					<tbody class="divide-y divide-rule bg-paper">
+					<tbody class="divide-y divide-rule">
 						{#each calibration as row}
 							<tr>
 								<td class="border-r border-rule px-4 py-3 font-mono text-ink">{row.normalized}</td>
