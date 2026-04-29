@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-	html {
-		scroll-behavior: smooth;
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
 	}
 
 	body {
@@ -28,6 +30,17 @@
 	::selection {
 		background: theme('colors.ink.strong');
 		color: theme('colors.paper.DEFAULT');
+	}
+
+	a:focus-visible,
+	button:focus-visible,
+	input:focus-visible,
+	textarea:focus-visible,
+	select:focus-visible,
+	[tabindex]:not([tabindex='-1']):focus-visible {
+		outline: 2px solid theme('colors.mark.DEFAULT');
+		outline-offset: 3px;
+		border-radius: 2px;
 	}
 }
 

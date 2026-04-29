@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+	<style>
+		.sans { font-family: 'Public Sans', ui-sans-serif, -apple-system, 'Segoe UI', sans-serif; }
+		.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+		.tabular { font-variant-numeric: tabular-nums; }
+	</style>
+	<rect width="1200" height="630" fill="#fcfaf6"/>
+
+	<!-- Wordmark -->
+	<g transform="translate(80, 80)">
+		<rect x="0.75" y="0.75" width="38.5" height="38.5" rx="5.25" fill="none" stroke="#1f1a14" stroke-width="1.5"/>
+		<text class="sans" x="20" y="28" text-anchor="middle" font-weight="700" font-size="20" fill="#1f1a14">P</text>
+		<text class="mono" x="56" y="28" font-weight="600" font-size="18" fill="#2d2722">pickanumber</text>
+		<rect x="200" y="11" width="100" height="22" rx="11" fill="#fcfaf6" stroke="#ddd9d0"/>
+		<text class="mono" x="250" y="26" text-anchor="middle" font-size="12" fill="#5e574f">v0.7 · draft</text>
+	</g>
+
+	<!-- Receipts strip -->
+	<g transform="translate(80, 220)" class="sans">
+		<text font-size="22" fill="#5e574f">
+			<tspan class="mono tabular" font-weight="600" font-size="28" fill="#1f1a14">18</tspan>
+			<tspan dx="8">hackathons</tspan>
+			<tspan dx="22" fill="#928a7e">·</tspan>
+			<tspan dx="22" class="mono tabular" font-weight="600" font-size="28" fill="#1f1a14">342</tspan>
+			<tspan dx="8">BLS occupations</tspan>
+			<tspan dx="22" fill="#928a7e">·</tspan>
+			<tspan dx="22" class="mono tabular" font-weight="600" font-size="28" fill="#1f1a14">9</tspan>
+			<tspan dx="8">frontier models</tspan>
+		</text>
+	</g>
+
+	<!-- Headline -->
+	<g class="sans" transform="translate(80, 290)">
+		<text font-weight="700" font-size="92" fill="#1f1a14" letter-spacing="-2">
+			<tspan x="0" y="80">Don't let the LLM</tspan>
+			<tspan x="0" y="190" fill="#3d62cc">pick a number.</tspan>
+		</text>
+	</g>
+
+	<!-- Punchline -->
+	<g class="sans" transform="translate(80, 538)">
+		<text font-size="22" fill="#5e574f">
+			<tspan font-weight="600" fill="#1f1a14">The LLM finds evidence. Math computes the score.</tspan>
+		</text>
+	</g>
+
+	<!-- Footer rule -->
+	<line x1="80" y1="572" x2="1120" y2="572" stroke="#ddd9d0"/>
+	<text class="mono" x="80" y="600" font-size="14" fill="#928a7e">pickanumber.codefi.io</text>
+	<text class="mono" x="1120" y="600" text-anchor="end" font-size="14" fill="#928a7e">$ npx skills add CodefiLabs/pickanumber/...</text>
+</svg>

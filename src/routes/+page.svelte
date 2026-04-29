@@ -105,6 +105,26 @@
 		name="description"
 		content="A methodology paper, three installable skills, and worked rescoring case studies. The LLM finds evidence; math computes the score."
 	/>
+	<link rel="canonical" href="https://pickanumber.codefi.io/" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://pickanumber.codefi.io/" />
+	<meta property="og:title" content="Don't Let the LLM Pick a Number" />
+	<meta
+		property="og:description"
+		content="The LLM finds evidence. Math computes the score. A methodology paper, three installable skills, and worked rescoring case studies."
+	/>
+	<meta property="og:image" content="https://pickanumber.codefi.io/og.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Don't Let the LLM Pick a Number" />
+	<meta
+		name="twitter:description"
+		content="The LLM finds evidence. Math computes the score."
+	/>
+	<meta name="twitter:image" content="https://pickanumber.codefi.io/og.png" />
 </svelte:head>
 
 <!-- ╭──────────────────────────────────────────────────────────────╮
@@ -214,6 +234,7 @@
 	</div>
 </header>
 
+<main>
 <!-- ╭──────────────────────────────────────────────────────────────╮
      │ PROBLEM                                                       │
      ╰──────────────────────────────────────────────────────────────╯ -->
@@ -547,6 +568,7 @@
 		</div>
 	</div>
 </section>
+</main>
 
 <!-- ╭──────────────────────────────────────────────────────────────╮
      │ FOOTER                                                        │
