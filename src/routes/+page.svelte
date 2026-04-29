@@ -593,7 +593,15 @@
 				>
 					P
 				</div>
-				<span class="font-mono text-xs text-ink-soft">pickanumber · codefilabs</span>
+				<span class="font-mono text-xs text-ink-soft">
+					pickanumber ·
+					<a
+						class="underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
+						href="https://codefiworks.com"
+						target="_blank"
+						rel="noopener">codefi</a
+					>
+				</span>
 			</div>
 
 			<div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
