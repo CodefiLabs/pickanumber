@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		font-kerning: normal;
+		font-optical-sizing: auto;
+		text-rendering: optimizeLegibility;
+	}
+
+	h1, h2, h3, h4 {
+		text-wrap: balance;
+	}
+
+	p {
+		text-wrap: pretty;
+	}
+
+	.tabular {
+		font-variant-numeric: tabular-nums;
+	}
+
+	::selection {
+		background: theme('colors.ink.strong');
+		color: theme('colors.paper.DEFAULT');
+	}
+}
+
+@layer components {
+	.container-prose {
+		@apply mx-auto w-full max-w-5xl px-6 lg:px-8;
+	}
+
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition;
+	}
+
+	.btn-primary {
+		@apply bg-mark text-paper hover:bg-mark-deep;
+	}
+
+	.btn-ghost {
+		@apply border border-rule text-ink hover:border-ink-soft;
+	}
+
+	.kbd {
+		@apply rounded border border-rule bg-paper-sunk px-1.5 py-0.5 font-mono text-xs text-ink-soft;
+	}
+
+	.tag {
+		@apply inline-flex items-center rounded-full border border-rule bg-paper px-2.5 py-1 font-mono text-xs text-ink-soft;
+	}
+}
