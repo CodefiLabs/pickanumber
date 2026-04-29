@@ -106,6 +106,8 @@
 		content="A methodology paper, three installable skills, and worked rescoring case studies. The LLM finds evidence; math computes the score."
 	/>
 	<link rel="canonical" href="https://pickanumber.codefi.io/" />
+	<meta name="theme-color" content="#fcfaf6" media="(prefers-color-scheme: light)" />
+	<meta name="theme-color" content="#1f1a14" media="(prefers-color-scheme: dark)" />
 
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://pickanumber.codefi.io/" />
