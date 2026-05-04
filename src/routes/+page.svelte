@@ -142,7 +142,7 @@
 					P
 				</div>
 				<span class="font-mono text-sm font-semibold text-ink">pickanumber</span>
-				<span class="tag">v0.7 · draft</span>
+				<span class="tag">v0.8 · draft</span>
 			</div>
 			<nav class="flex items-center gap-4 text-sm sm:gap-6">
 				<a class="hidden text-ink-soft transition hover:text-ink md:inline" href="#problem"
@@ -641,9 +641,9 @@
 					<dt class="text-ink-faint">Title</dt>
 					<dd class="text-ink-strong">Don't Let the LLM Pick a Number</dd>
 					<dt class="text-ink-faint">Status</dt>
-					<dd class="text-ink">v0.7 draft</dd>
+					<dd class="text-ink">v0.8.0 draft</dd>
 					<dt class="text-ink-faint">Length</dt>
-					<dd class="text-ink">~9k words + appendices</dd>
+					<dd class="text-ink">~12k words + 5 appendices</dd>
 					<dt class="text-ink-faint">Calibrated on</dt>
 					<dd class="text-ink">90+ hackathon submissions (3 events), 342 BLS occupations</dd>
 					<dt class="text-ink-faint">Models tested</dt>

@@ -34,7 +34,7 @@ The site at [pickanumber.codefi.io](https://pickanumber.codefi.io) walks through
 ```
 pickanumber/
 ├── paper/                            # the methodology paper
-│   ├── paper.md                      # Don't Let the LLM Pick a Number — v0.7 draft
+│   ├── paper.md                      # Don't Let the LLM Pick a Number — v0.8.0 draft
 │   └── README.md                     # paper status + headline results
 ├── evidence-scoring/                 # generic methodology skill
 │   └── SKILL.md
