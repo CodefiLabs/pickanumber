@@ -19,6 +19,19 @@ This skill is the lifted methodology from the paper *Don't Let the LLM Pick a Nu
 
 If the user just wants quick feedback on a draft, use `what-works-feedback-judge`. If they want to score code submissions with optional demo video, use `hackathon-judge`. This skill is the toolkit underneath both.
 
+## Run the probe first
+
+Before doing the setup conversation, run the `calibration-probe` skill on the candidate scoring model. The probe takes ~30 seconds and classifies the model into one of five regimes (CALIBRATED, INFLATION_LIKELY, DEFLATION_LIKELY, PICKS_A_NUMBER, JITTERY). The regime determines how much of this skill you should use:
+
+- **CALIBRATED** — use Principles 1, 4, 5 only (lighter touch). The full counter-bias may over-correct.
+- **INFLATION_LIKELY** — use everything in this skill. The methodology was designed for this case.
+- **DEFLATION_LIKELY** — use the methodology but soften the counter-bias instructions.
+- **PICKS_A_NUMBER** — halt. The formula cannot rescue a model that gives essentially the same number to everything.
+- **JITTERY** — halt or ensemble (run the model 3–5 times and average).
+- **AMBIGUOUS** or untested — proceed with the full setup but flag the run as "untested model" so the user knows to validate before scaling.
+
+If the user has not run the probe, do not block on it — proceed with the full setup and surface the flag in the final report. The probe is a recommendation, not a hard gate. (Empirical rationale in `paper/paper.md` Sections 5.5 and 5.7 — calibration-conditional adoption rule across six v3 models.)
+
 ## The seven principles (memorize these)
 
 1. **Separate observation from scoring.** The LLM finds evidence. A formula, not the LLM, produces the score.
@@ -127,6 +140,7 @@ If matrix: also report per-criterion scores, the weighted overall, the overall c
 - **The user wants a sub-score below 0 or above 100.** Don't. Clamp. The bounded scale is principle 6 for a reason.
 - **The user has fewer than 3 items per cell.** Either look harder, or accept the low confidence and report it honestly. Density is signal — don't paper over it.
 - **All scores cluster within a 20-point band.** Self-check failure. Re-examine items. The evaluator was either soft or unable to distinguish — both are surfaceable as feedback.
+- **The model probes PICKS_A_NUMBER or JITTERY.** The methodology won't help — switch models or accept that automated scoring on this model is unreliable. The formula cannot rescue intrinsically weak signal. Run `calibration-probe` if the regime is not yet known.
 
 ## Final report format
 
@@ -163,7 +177,7 @@ If matrix: also report per-criterion scores, the weighted overall, the overall c
 - Paper: `paper/paper.md` in this repo (CodefiLabs/pickanumber)
 - Worked rescoring example: `examples/impeccable-rescoring.md` — what changes when an existing LLM-judged benchmark drops the LLM-picks-a-number step
 - Companion analysis: `examples/cua-bench-analysis.md` — when the methodology partially fits (deterministic-reward benchmarks)
-- Sister skills: `what-works-feedback-judge` (pooled, 4-bucket idea-readiness), `hackathon-judge` (per-criterion, project submissions with optional video)
+- Sister skills: `calibration-probe` (preflight regime classifier — run before this skill), `what-works-feedback-judge` (pooled, 4-bucket idea-readiness), `hackathon-judge` (per-criterion, project submissions with optional video)
 
 ## Done
 

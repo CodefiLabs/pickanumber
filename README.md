@@ -2,17 +2,21 @@
 
 > Don't let the LLM pick a number.
 
-**Pickanumber** is a methodology, a paper, and three installable skills for evidence-based LLM scoring. Ask an LLM to score something on a 0–10 scale and you'll get a 7. Ask again, you'll get a 7. The model isn't grading; it's anchoring. This repo fixes the problem the same way every time: **the LLM finds evidence; math computes the score.**
+**Pickanumber** is a methodology, a paper, and **four installable skills** for evidence-based LLM scoring. Ask an LLM to score something on a 0–10 scale and you'll get a 7. Ask again, you'll get a 7. The model isn't grading; it's anchoring. This repo fixes the problem the same way every time: **the LLM finds evidence; math computes the score.**
 
-The methodology was calibrated on 90+ hackathon submissions (codebases and demo videos, three events) and 342 BLS occupations across 9 frontier models. The paper is in [`paper/paper.md`](./paper/paper.md). Worked rescoring case studies are in [`examples/`](./examples/).
+The methodology was calibrated on 90+ hackathon submissions (codebases and demo videos, three events) and 342 BLS occupations across 9 frontier models. v0.8 adds a held-out 6-model regime grid and a 30-second calibration probe. The paper is in [`paper/paper.md`](./paper/paper.md). Worked rescoring case studies are in [`examples/`](./examples/).
 
 ## Quickstart
 
 ### Install a skill via skills.sh
 
-Pick the one that matches your need:
+Run the probe first, then pick the skill that matches your need:
 
 ```bash
+# Preflight: which regime is your model in? (CALIBRATED, INFLATION_LIKELY,
+# DEFLATION_LIKELY, PICKS_A_NUMBER, or JITTERY)
+npx skills add CodefiLabs/pickanumber/calibration-probe
+
 # Generic seven-principle scoring methodology — bring your own domain
 npx skills add CodefiLabs/pickanumber/evidence-scoring
 
@@ -36,6 +40,11 @@ pickanumber/
 ├── paper/                            # the methodology paper
 │   ├── paper.md                      # Don't Let the LLM Pick a Number — v0.8.0 draft
 │   └── README.md                     # paper status + headline results
+├── calibration-probe/                # 30-second preflight regime classifier
+│   ├── SKILL.md
+│   ├── scripts/aggregate.py          # 5-regime classifier (no API calls)
+│   ├── items/sentence-structure.json # default 20-item probe
+│   └── prompts/sentence-structure-system.md
 ├── evidence-scoring/                 # generic methodology skill
 │   └── SKILL.md
 ├── what-works-feedback-judge/        # 4-bucket idea-readiness skill
@@ -98,15 +107,16 @@ npm run preview      # serve the production build
 
 The site is static — `@sveltejs/adapter-static` builds to `build/` and deploys anywhere.
 
-## Why three skills, not one?
+## Why four skills, not one?
 
-Each one is the same methodology pointed at a different shape of input.
+The core three are the same methodology pointed at a different shape of input. The fourth is a preflight diagnostic that runs before any of them.
 
+- **calibration-probe** is the preflight. 30-second synthetic test, no ground truth, classifies your candidate model into one of five regimes (CALIBRATED, INFLATION_LIKELY, DEFLATION_LIKELY, PICKS_A_NUMBER, JITTERY). Run it before deploying the methodology so you know whether it will help, hurt, or make no difference on your model.
 - **evidence-scoring** is the methodology bare. The user brings the domain (a hire, a vendor, a draft, a model output). They define the matrix. The skill walks them through cataloging signed evidence and runs the formula.
 - **what-works-feedback-judge** is the simplest pre-baked application. Four buckets (Working / Not working / Missing / Confusing), one pooled score, save-and-iterate. Use it for any draft, plan, or pitch.
-- **hackathon-judge** is the most structured application. Four-pass pipeline (code analysis → optional demo → adversarial synthesis → mentoring feedback) over a 5×5 matrix. Use it when there's a code submission and someone needs to score it consistently.
+- **hackathon-judge** is the most structured application. Four-pass pipeline (code analysis → optional demo → adversarial synthesis → mentoring feedback) over a 5×5 matrix. Reads a `calibration_regime` parameter from the probe to dial counter-bias up or down. Use it when there's a code submission and someone needs to score it consistently.
 
-Pick the smallest one that fits.
+Pick the smallest one that fits — but run the probe first if you have not yet tested your scoring model.
 
 ## Credits
 

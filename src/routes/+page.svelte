@@ -9,6 +9,13 @@
 
 	const skills = [
 		{
+			id: 'calibration-probe',
+			name: 'calibration-probe',
+			tagline: 'A 30-second preflight. Will the methodology even help on your model?',
+			body: "Synthetic 20-item rating test, repeated 30 times, no ground truth required. Classifies your candidate model into one of five regimes (CALIBRATED, INFLATION_LIKELY, DEFLATION_LIKELY, PICKS_A_NUMBER, JITTERY) and tells you whether to run the full pipeline, use a lighter touch, or switch models. Run before any of the three skills below.",
+			install: 'npx skills add CodefiLabs/pickanumber/calibration-probe'
+		},
+		{
 			id: 'evidence-scoring',
 			name: 'evidence-scoring',
 			tagline: 'The seven-principle methodology, generic.',
@@ -26,8 +33,41 @@
 			id: 'hackathon-judge',
 			name: 'hackathon-judge',
 			tagline: 'Four-pass project judging — code, demo, math, mentoring.',
-			body: "Score any project submission with a codebase (and optional demo video) against a 5×5 evidence matrix. Independent passes prevent polish from masking thin code and vice versa. Math computes the scores; the team gets a grounded mentoring report.",
+			body: "Score any project submission with a codebase (and optional demo video) against a 5×5 evidence matrix. Independent passes prevent polish from masking thin code and vice versa. Math computes the scores; the team gets a grounded mentoring report. Reads a `calibration_regime` parameter from the probe to dial counter-bias up or down.",
 			install: 'npx skills add CodefiLabs/pickanumber/hackathon-judge'
+		}
+	];
+
+	const regimes = [
+		{
+			name: 'CALIBRATED',
+			signal: 'range ≥ 5, both 1s and 9s show up',
+			recommend: 'Lighter touch — Principles 1, 4, 5 only.',
+			tone: 'good'
+		},
+		{
+			name: 'INFLATION_LIKELY',
+			signal: 'lots of 9s/10s, almost no 1s/2s',
+			recommend: 'Full pipeline. Methodology was designed for this.',
+			tone: 'good'
+		},
+		{
+			name: 'DEFLATION_LIKELY',
+			signal: 'lots of 1s/2s, almost no 9s/10s',
+			recommend: 'Full pipeline + reduced counter-bias.',
+			tone: 'mixed'
+		},
+		{
+			name: 'PICKS_A_NUMBER',
+			signal: 'tight cluster around one score (range ≤ 2)',
+			recommend: 'Switch model. The formula cannot rescue weak signal.',
+			tone: 'halt'
+		},
+		{
+			name: 'JITTERY',
+			signal: 'same item, very different scores run-to-run',
+			recommend: 'Ensemble first. Reliability is the constraint.',
+			tone: 'halt'
 		}
 	];
 
@@ -157,6 +197,9 @@
 				<a class="hidden text-ink-soft transition hover:text-ink lg:inline" href="#examples"
 					>Examples</a
 				>
+				<a class="hidden text-ink-soft transition hover:text-ink lg:inline" href="#regimes"
+					>Regimes</a
+				>
 				<a class="hidden text-ink-soft transition hover:text-ink md:inline" href="#mybench"
 					>MyBench</a
 				>
@@ -185,6 +228,8 @@
 				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">342</span> BLS occupations</span>
 				<span class="text-ink-faint" aria-hidden="true">·</span>
 				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">9</span> frontier models</span>
+				<span class="text-ink-faint" aria-hidden="true">·</span>
+				<span><span class="tabular font-mono text-base font-semibold text-ink-strong">5</span> regimes</span>
 			</div>
 
 			<h1 class="mt-6 text-display font-bold text-ink-strong">
@@ -468,6 +513,97 @@
 </section>
 
 <!-- ╭──────────────────────────────────────────────────────────────╮
+     │ REGIMES — when does this work?                                │
+     ╰──────────────────────────────────────────────────────────────╯ -->
+<section id="regimes" class="border-b border-rule py-24 lg:py-32">
+	<div class="container-prose">
+		<p class="font-mono text-xs uppercase tracking-wider text-ink-faint">v0.8 — calibration-conditional</p>
+		<h2 class="mt-3 text-section font-semibold text-ink-strong">
+			Will it help on your model? Run the probe first.
+		</h2>
+		<p class="mt-4 max-w-3xl text-ink-soft">
+			The methodology is not a free lunch. We ran the v3 prompts across six model families
+			(gpt-5.5, deepseek-flash, gemini-3-flash, gemma4, gpt-oss-20b, nemotron) on a held-out 77-submission
+			hackathon dataset and observed a clean regime structure: principled rescoring wins on every
+			metric for the most-inflated model (gemini-3-flash), can over-correct on already-calibrated
+			models (gpt-5.5, deepseek-flash, gpt-oss-20b — the 3-of-6 over-correction pattern), and cannot
+			rescue intrinsically weak signal (nemotron, the textbook PICKS_A_NUMBER case).
+		</p>
+		<p class="mt-4 max-w-3xl text-ink-soft">
+			The fix is to <strong class="font-semibold text-ink-strong">run a 30-second probe first</strong> —
+			a 20-item synthetic rating test, no ground truth required — and let the regime label tell you
+			how much methodology to apply.
+		</p>
+
+		<div class="mt-10 overflow-x-auto rounded-md border border-rule">
+			<table class="w-full border-collapse text-left text-sm">
+				<thead class="bg-ink-strong">
+					<tr>
+						<th class="px-4 py-3 font-mono text-xs uppercase tracking-wider text-paper-sunk">Regime</th>
+						<th class="px-4 py-3 text-xs uppercase tracking-wider text-paper-sunk">What it looks like</th>
+						<th class="px-4 py-3 text-xs uppercase tracking-wider text-paper-sunk">Recommendation</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-rule">
+					{#each regimes as r}
+						<tr>
+							<td class="border-r border-rule px-4 py-3 font-mono text-ink-strong">{r.name}</td>
+							<td class="border-r border-rule px-4 py-3 text-ink-soft">{r.signal}</td>
+							<td class="px-4 py-3 text-ink">{r.recommend}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+
+		<p class="mt-6 max-w-3xl text-sm text-ink-faint">
+			Order of checks: JITTERY first (high run-to-run variance makes the shape rules unreliable),
+			then INFLATION_LIKELY / DEFLATION_LIKELY (extreme clusters), then PICKS_A_NUMBER (compressed
+			middle), then CALIBRATED. Full classifier thresholds and the empirical six-model grid are in
+			Sections 5.5, 5.7, and Appendix E of the paper.
+		</p>
+
+		<div class="mt-10 rounded-lg border border-rule bg-paper p-6 lg:p-8">
+			<h3 class="text-base font-semibold text-ink-strong">Run the probe.</h3>
+			<p class="mt-3 text-sm leading-relaxed text-ink-soft">
+				Install <span class="font-mono text-ink-strong">calibration-probe</span>, point it at your
+				candidate scoring model, and read the regime label. If it lands CALIBRATED, use the lighter
+				touch. If INFLATION_LIKELY, run the full pipeline. If PICKS_A_NUMBER or JITTERY, switch
+				models — the formula cannot rescue intrinsically weak signal.
+			</p>
+			<button
+				onclick={() => copy('regimes', 'npx skills add CodefiLabs/pickanumber/calibration-probe')}
+				title="npx skills add CodefiLabs/pickanumber/calibration-probe"
+				class="group mt-5 flex w-full items-center justify-between gap-3 rounded-md border border-rule bg-paper-sunk px-4 py-3 font-mono text-xs text-ink transition hover:border-ink-soft sm:text-sm"
+			>
+				<span class="min-w-0 flex-1 truncate text-left">
+					<span class="text-ink-faint">$</span> npx skills add CodefiLabs/pickanumber/calibration-probe
+				</span>
+				{#if copyState.regimes === 'copied'}
+					<span class="shrink-0 font-semibold text-ink-strong">✓ copied</span>
+				{:else if copyState.regimes === 'error'}
+					<span class="shrink-0 font-semibold text-ink-strong">select manually</span>
+				{:else}
+					<svg
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						class="shrink-0 text-ink-faint transition group-hover:text-ink"
+						aria-hidden="true"
+						><rect x="9" y="9" width="13" height="13" rx="2" /><path
+							d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+						/></svg
+					>
+				{/if}
+			</button>
+		</div>
+	</div>
+</section>
+
+<!-- ╭──────────────────────────────────────────────────────────────╮
      │ IN PRODUCTION — MyBench                                       │
      ╰──────────────────────────────────────────────────────────────╯ -->
 <section id="mybench" class="border-b border-rule py-24 lg:py-32">
@@ -566,7 +702,10 @@
 
 		<!-- Decision aid in code-comment voice -->
 		<p class="mt-6 max-w-3xl font-mono text-sm leading-relaxed text-ink-soft">
-			<span class="text-ink-faint">// not sure?</span>
+			<span class="text-ink-faint">// preflight</span>
+			<span class="text-ink-strong">calibration-probe</span> first — 30 seconds, tells you whether the methodology will help on your model.
+			<br />
+			<span class="text-ink-faint">// not sure which?</span>
 			<span class="text-ink-strong">what-works-feedback-judge</span> is the simplest.
 			<span class="text-ink-strong">hackathon-judge</span> if you have a code submission.
 			<span class="text-ink-strong">evidence-scoring</span> if you're bringing your own domain.

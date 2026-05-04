@@ -199,10 +199,12 @@ The density multiplier rewards depth. If your evidence list feels thin (under 8 
 
 If the user disagrees with a specific item or magnitude, that's the skill working — surface-level prose feedback hides those calibration disagreements. Adjust the item, recompute, and continue.
 
+**If the score barely moves between revisions** — the user revises substantially and gets the same readiness number twice — that's the operational signature of a model in `PICKS_A_NUMBER` regime on this task. Run `calibration-probe` to confirm. If it lands PICKS_A_NUMBER or JITTERY, switch models; the methodology cannot rescue intrinsically weak signal.
+
 ## Reference
 
 - Canonical formula: `references/formula.md`
 - Helper script: `scripts/score.py` — handles formula computation and JSON persistence
 - Output directory: `./_judge/` (relative to cwd) — created automatically on first save. Override with the `JUDGE_DIR` environment variable.
-- Sister skill: `evidence-scoring` (generic methodology), `hackathon-judge` (project-submission scoring)
+- Sister skills: `calibration-probe` (preflight regime classifier — run when scores stop moving across revisions), `evidence-scoring` (generic methodology), `hackathon-judge` (project-submission scoring)
 - Origin paper: *Don't Let the LLM Pick a Number* — `paper/paper.md` in the CodefiLabs/pickanumber repo

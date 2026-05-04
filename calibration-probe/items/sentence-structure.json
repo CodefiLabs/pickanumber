@@ -1,0 +1,28 @@
+{
+  "name": "sentence-structure",
+  "scale_min": 1,
+  "scale_max": 10,
+  "description": "20 short prose samples spanning the full quality range — some deliberately broken, some plain, some carefully constructed. Used to probe a model's number-picking behavior on a structural-quality rating task.",
+  "items": [
+    "The dog ran fast.",
+    "Despite the inclement weather, which had been forecast several days in advance, the team proceeded with the planned exercise.",
+    "Me and him went store yesterday for getting things which we needed for the project that we are doing.",
+    "She paused, looked once at the closed door, and stepped quietly into the rain.",
+    "Although the report was thorough, its conclusions hinged on a single unstated assumption.",
+    "There was a man and he had a dog and the dog was big and brown and they walked together.",
+    "Few prose stylists balance rhythm and precision as deftly as he does.",
+    "The system, originally designed for a much smaller dataset, struggled visibly under the new load — yet it never crashed.",
+    "Running quickly through the airport terminal because the flight was about to leave and there was no time to waste at all.",
+    "Trees swayed; the river rose; the bridge held.",
+    "It is a fact, as has been established, that the matter to which we have referred is one which requires our attention.",
+    "He laughed once, then again, then could not stop.",
+    "After three weeks of rehearsal — long, exhausting, sometimes joyful weeks — the company finally felt the show was ready.",
+    "Why bother with politeness when the world rewards bluntness so consistently and so reliably?",
+    "Because waiting they were when finally the train arrived from the station of north.",
+    "The argument, while ingenious, ultimately rests on an equivocation between two senses of the word 'fair'.",
+    "Cookies are good and pizza is good but I like pizza more than cookies because pizza has more things on it.",
+    "Few sentences earn their commas; this one does not.",
+    "Beneath the noise, beneath the headlines, beneath even the rumors, something quieter was beginning to take shape.",
+    "If one is to consider the matter properly one must, in the first instance, before any other considerations, take into account the fact that the situation is, by its very nature, complex."
+  ]
+}

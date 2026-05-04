@@ -32,6 +32,21 @@ PASS 4  Team feedback           → pass4-feedback.json    (mentoring report)
 
 **Why separation matters.** Pass 1 reads the code without seeing the demo. Pass 2 watches the demo without seeing the code. Pass 3 synthesizes them adversarially — looking for contradictions (e.g., "demo claimed feature X works; code shows X is a stub"). If you let one pass leak into the next, you lose the cross-check that catches polish-without-substance and substance-without-polish.
 
+## Pass 0 — Calibration preflight (recommended)
+
+Before scoring submissions, run the `calibration-probe` skill on the candidate scoring model to determine its **regime**. The regime drives how strongly the counter-bias prompts in this skill should fire. Accept a `calibration_regime` parameter when invoking this skill (defaults to `unknown`):
+
+| Regime | Behavior |
+|---|---|
+| `inflation_likely` | Run all four passes with full counter-bias prompts (the v3 default — "skeptic's eye", "two honest items > five invented", "README claims without code → negative item"). |
+| `calibrated` | Run all four passes but **soften the counter-bias** — drop the explicit "skeptic's eye" instruction and the "don't inflate" override. The model already discriminates; pushing harder produces deflation. |
+| `deflation_likely` | Same as `calibrated`. The model is already negative-skewed; counter-bias compounds the problem. |
+| `picks_a_number` | **Halt.** The methodology cannot rescue a model that gives essentially the same score regardless of input. Switch models or tell the user to accept that automated scoring on this model will be unreliable. |
+| `jittery` | **Halt or ensemble.** Run the candidate model 3–5 times and average each pass's output before applying the formula. The methodology assumes per-item variance is low; if it isn't, ensembling addresses the symptom, not the methodology. |
+| `unknown` | Run all four passes, **flag the run as "untested model" in the final report**, and recommend the user run `calibration-probe` before deploying at scale. |
+
+If the user has not run the probe, do not block on it — proceed with regime `unknown` and surface the flag. The probe is a recommendation, not a hard gate.
+
 ## The 5×5 evidence matrix
 
 Default perspectives (rows): `requester / sme / end_user / production / adversary`
@@ -40,6 +55,8 @@ Default criteria (columns): `problem_fit / craft / depth / innovation / complete
 Customize when the domain demands. A take-home for a security role might use perspectives `hiring_manager / future_teammate / on_call / adversary / candidate_themself`. A pitch evaluation might use criteria `problem_clarity / market_fit / moat / team / ask`. Forcing five perspectives × five criteria is the principle, not the specific labels.
 
 For each `(perspective, criterion)` cell, the analysis pass collects up to **5** signed evidence items (`{+5, +3, +2, +1, −1, −2, −3, −5}`), each with concrete evidence — file:line or timestamp. **Hard cap 5 per cell.** Past 5 is padding; sqrt normalization gives diminishing returns anyway. **Floor 3 per cell** — fewer means the analyst didn't look hard enough.
+
+**Per-criterion floor (≥ 2 items per criterion across all perspectives).** This is a stronger floor than the per-cell minimum and it exists for a structural reason: under sparse evidence, the density multiplier collapses a criterion's score toward 50, which inflates per-criterion MAE on whichever criterion the model has the least to say about. The fix is to require **at least 2 honest items per criterion summed across all 5 perspectives** before the run can be scored. If the model genuinely cannot find 2 items for a criterion, it should explicitly downweight that criterion in the report rather than letting the formula cluster the score near 50. (See `paper/paper.md` Section 6.6 for the empirical rationale — confirmed regression on 6 of 6 v3 models.)
 
 Default criterion weights (sum to 1.0):
 
@@ -71,6 +88,9 @@ Adjust per submission category. A pure research entry bumps `innovation`; a prod
 - Each item must include: short specific description, impact in `{+5, +3, +2, +1, −1, −2, −3, −5}`, evidence as `path:line — what it shows`.
 - "Good code" is not an item. "Well-structured JWT refresh logic with proper expiry handling at `auth/middleware.ts:47`" is.
 - Confidence measures evidence quantity, not project quality. A weak project with abundant evidence gets high confidence and a low score — that's the formula working.
+- **Per-criterion floor: at least 2 items per criterion across all 5 perspectives.** If you genuinely cannot produce 2 items for a criterion, explicitly downweight that criterion in the report rather than letting the density multiplier collapse it toward 50. (Empirically validated regression on 6 of 6 v3 models — see `paper/paper.md` Section 6.6.)
+- **If `calibration_regime` is `calibrated`, soften counter-bias.** Drop the "skeptic's eye" instruction and the "don't inflate" override; collect evidence symmetrically. The full counter-bias prompts over-correct on already-calibrated models. The empirical signature: principled scores deflate below naive on models that didn't need correction.
+- **If `calibration_regime` is `unknown`, flag the run.** Add `"untested_model": true` to `pass3-synthesis.json` and surface it in the final report so the user knows to run `calibration-probe` before deploying at scale.
 
 **Output:** `./_judge/<submission-slug>/pass1-code.json`
 
@@ -269,15 +289,17 @@ The user can drive any subset:
 ## Reference
 
 - Methodology paper: `paper/paper.md` in CodefiLabs/pickanumber
-- Sister skills: `evidence-scoring` (generic methodology), `what-works-feedback-judge` (4-bucket idea-readiness)
+- Sister skills: `calibration-probe` (preflight regime classifier — run before this skill), `evidence-scoring` (generic methodology), `what-works-feedback-judge` (4-bucket idea-readiness)
 - Worked example of formula behavior: `examples/impeccable-rescoring.md`
+- Per-criterion floor + counter-bias dial rationale: `paper/paper.md` Sections 6.4 (regime taxonomy) and 6.6 (demo_quality regression on 6/6 v3 models)
 
 ## Done
 
 When all four passes are written, present a one-page summary to the user:
 
 - Overall score + confidence + tier + self-check pass/fail
-- Per-criterion scoreboard (table)
+- **Calibration regime** of the scoring model (CALIBRATED / INFLATION_LIKELY / etc., or "untested" if the probe was not run). Untested runs should carry a visible flag.
+- Per-criterion scoreboard (table) — flag any criterion that hit the per-criterion item floor (≥ 2 items rule)
 - Top 3 strengths and top 3 concerns (from Pass 3 grouping)
 - Pointer to `./_judge/<submission-slug>/pass4-feedback.json` for the team-facing report
 - One sentence: should this team get the next round / merge / pilot?
