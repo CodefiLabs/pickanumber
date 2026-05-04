@@ -12,7 +12,7 @@
 			id: 'calibration-probe',
 			name: 'calibration-probe',
 			tagline: 'A 30-second preflight. Will the methodology even help on your model?',
-			body: "Synthetic 20-item rating test, repeated 30 times, no ground truth required. Classifies your candidate model into one of five regimes (CALIBRATED, INFLATION_LIKELY, DEFLATION_LIKELY, PICKS_A_NUMBER, JITTERY) and tells you whether to run the full pipeline, use a lighter touch, or switch models. Run before any of the three skills below.",
+			body: "Synthetic 20-item rating test, repeated 30 times, no ground truth required. Classifies your candidate model into one of five regimes (CALIBRATED, INFLATION_LIKELY, DEFLATION_LIKELY, PICKS_A_NUMBER, JITTERY) and tells you whether to run the full pipeline, use a lighter touch, or switch models. Run before any of the three scoring skills below.",
 			install: 'npx skills add CodefiLabs/pickanumber/calibration-probe'
 		},
 		{
@@ -143,7 +143,7 @@
 	<title>Don't Let the LLM Pick a Number — pickanumber</title>
 	<meta
 		name="description"
-		content="A methodology paper, three installable skills, and worked rescoring case studies. The LLM finds evidence; math computes the score."
+		content="A methodology paper, a calibration probe, three scoring skills, and worked rescoring case studies. The LLM finds evidence; math computes the score."
 	/>
 	<link rel="canonical" href="https://pickanumber.codefi.io/" />
 	<meta name="theme-color" content="#fcfaf6" media="(prefers-color-scheme: light)" />
@@ -154,7 +154,7 @@
 	<meta property="og:title" content="Don't Let the LLM Pick a Number" />
 	<meta
 		property="og:description"
-		content="The LLM finds evidence. Math computes the score. A methodology paper, three installable skills, and worked rescoring case studies."
+		content="The LLM finds evidence. Math computes the score. A methodology paper, a 30-second calibration probe, and three scoring skills."
 	/>
 	<meta property="og:image" content="https://pickanumber.codefi.io/og.png" />
 	<meta property="og:image:width" content="1200" />
@@ -242,6 +242,11 @@
 				methodology and a working set of tools that fix the problem the same way every time:
 				<strong class="font-semibold text-ink-strong">the LLM finds evidence; math computes the score.</strong>
 			</p>
+			<p class="mt-4 text-sm text-ink-faint lg:text-base">
+				v0.8 adds a 30-second
+				<a class="font-semibold text-ink-soft underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong" href="#regimes">calibration probe</a>
+				that tells you whether the methodology will help on your specific model before you invest in the full pipeline.
+			</p>
 
 			<!-- Hero install — the conversion lives above the fold -->
 			<div class="mt-10">
@@ -275,6 +280,11 @@
 					{/if}
 				</button>
 				<div class="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm">
+					<a
+						href="#regimes"
+						class="text-ink-soft underline underline-offset-[6px] decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
+						>Test your model first ↓</a
+					>
 					<a
 						href="#install"
 						class="text-ink-soft underline underline-offset-[6px] decoration-ink-faint hover:decoration-ink-strong hover:text-ink-strong"
@@ -690,13 +700,16 @@
 </section>
 
 <!-- ╭──────────────────────────────────────────────────────────────╮
-     │ INSTALL — three skills                                        │
+     │ INSTALL — preflight + three scoring skills                    │
      ╰──────────────────────────────────────────────────────────────╯ -->
 <section id="install" class="border-b border-rule py-24 lg:py-32">
 	<div class="container-prose">
-		<h2 class="text-section font-semibold text-ink-strong">Three ways to use it.</h2>
+		<h2 class="text-section font-semibold text-ink-strong">One preflight, three ways to score.</h2>
 		<p class="mt-4 max-w-3xl text-ink-soft">
-			One repo, three skills. Pick the one that matches your need. All three are
+			One repo, four skills.
+			<strong class="font-semibold text-ink-strong">calibration-probe</strong> is the 30-second preflight — run it first to find out which regime your model is in.
+			Then pick the scoring skill that matches your input shape.
+			All four are
 			<a class="underline underline-offset-4 decoration-ink-faint hover:decoration-ink-strong" href="https://skills.sh" target="_blank" rel="noopener">skills.sh</a>-installable into Claude Code, Cursor, Goose, OpenCode, and any other skills-aware agent.
 		</p>
 
